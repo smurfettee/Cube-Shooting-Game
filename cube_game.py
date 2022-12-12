@@ -161,7 +161,7 @@ def main():
 
         
 
-        #BULLET MOVEMENT
+        #BULLET MOVEMENTT
         for bullet in bullets:
             if (bullet.x < 800 and bullet.x > 0) and (bullet.y > 0 and bullet.y < 600):
                 bullet.x += bullet.x_speed
