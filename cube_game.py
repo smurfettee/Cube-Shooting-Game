@@ -104,11 +104,22 @@ class Enemy_bullet:
     
     def draw(self):
         pygame.draw.rect(WIN, (255, 0, 0), (self.x, self.y, 10, 10))
+    
+class Scoreboard:
+
+    def __init__(self, score):
+        self.score = score
+        self.font = pygame.font.SysFont(None, 50)
+    
+    def draw(self, score):
+        self.score = score
+        img = self.font.render(str(self.score), True, (0, 0, 0))
+        WIN.blit(img, (750, 10))
         
-        
-def draw(player):
+def draw(player, scoreboard, score):
     WIN.fill((255, 255, 255))
     player.draw()
+    scoreboard.draw(score)
 
     for bullet in bullets:
         bullet.draw()
@@ -129,8 +140,9 @@ def main():
     clock = pygame.time.Clock()
     ready = True
     first_shot = True
-    
+    score = 0
 
+    scoreboard = Scoreboard(score)
     player = Player(400, 300, 30, 30)
     enemies.append(Enemy(150, 50, 30, 30))
     enemies.append(Enemy(150, 520, 30, 30))
@@ -140,7 +152,7 @@ def main():
 
     while running:
         clock.tick(FPS)
-        draw(player)
+        draw(player, scoreboard, score)
         end = time.time()
 
         for event in pygame.event.get():
@@ -166,7 +178,7 @@ def main():
                     enemy.y = 1000
                     global int0
                     int0 = time.time()
-                
+                    score += 1
                 
         #ENEMY DISAPPEAR
         for enemy in enemies:
